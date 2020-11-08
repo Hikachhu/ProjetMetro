@@ -21,7 +21,7 @@ void Rm_Elem_List_Perso(EnteteListePersonnages *EnteteListesDesPersonnages);
 void Free_List_Perso(EnteteListePersonnages *EnteteListeDesPersonnages);
 EnteteListeCoordonnes* Init_List_Coord();
 void Add_Elem_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Coordonnes *CoordonnesAjoute);
-void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,int DebutX,int FinX,int DebutY,int FinY);
+void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite);
 ListeCoordonnes* Rm_Elem_List_Coord(ListeCoordonnes *Element);
 void Rm_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes);
 int Find_Duo_Coord(ListeCoordonnes *ElementCoordonnes,int FuturX,int FuturY);
@@ -30,15 +30,15 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 
 
 //TourParTour.c
-void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes);
+void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite);
 void ChoixDirection(Personnage *PersonnageActuel);
-void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes);
+void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite);
 void New_Pos_To_Current_Pos(Personnage *PersonnageActuel);
 int Verif_Futur_Pos_Exist(EnteteListePersonnages *EnteteListeBase,int IdActuel,int XVerif,int YVerif);
 
 //Train.c
 Train* CreationTrain();
 void AffichageTrain(Train *TrainActuel);
-int TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel);
-void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train *TrainActuel);
+int TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Limite);
+void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train *TrainActuel,Limitation *Limite);
 void AfficheCoordonnesTrain(Train *TrainActuel);

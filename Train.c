@@ -24,7 +24,7 @@ void AffichageTrain(Train *TrainActuel){
   }
 }
 
-void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel){
+void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Limite){
   int TXAvant,TXActuel,TXApres,TY,PX,PY;
   TY=TXActuel=TrainActuel->PositionPorte[0]->x;
   PX=PersonnageActuel->PositionActuel->y;
@@ -32,13 +32,13 @@ void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel){
   for(int a=0;a<8;a++){
     TXActuel=TrainActuel->PositionPorte[a]->y;
     if(a==0){
-      TXAvant=0;
+      TXAvant=Limite->DebutX;
     }
     else{
       TXAvant=((TrainActuel->PositionPorte[a-1]->y)+(TXActuel))/2;
     }
     if(a==7){
-      TXApres=TAILLEY;
+      TXApres=Limite->FinX;
     }
     else{
       TXApres=((TrainActuel->PositionPorte[a+1]->y)+(TXActuel))/2;
@@ -58,12 +58,12 @@ void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel){
   }
 }
 
-void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train *TrainActuel){
+void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train *TrainActuel,Limitation *Limite){
   ElementListePersonnages *Actuel=EnteteListeDesPersonnages->PremierPersonnage;
   Personnage *PersonnageActuel=NULL;
   do{
     PersonnageActuel=Actuel->Usager;
-    TrouveTrain(PersonnageActuel,TrainActuel);
+    TrouveTrain(PersonnageActuel,TrainActuel,Limite);
     Actuel=Actuel->Suivant;
   }while(Actuel!=NULL);
 

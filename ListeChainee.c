@@ -190,10 +190,10 @@ void Add_Elem_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Coordon
 	}
 }
 
-void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,int DebutX,int FinX,int DebutY,int FinY){
+void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	Coordonnes *Actuel=malloc(sizeof(Coordonnes));
-	for(int i =DebutX;i<FinY;i++){
-		for(int j=DebutY;j<FinY;j++){
+	for(int i =Limite->DebutX;i<Limite->FinY;i++){
+		for(int j=Limite->DebutY;j<Limite->FinY;j++){
 			Actuel->x=i;
 			Actuel->y=j;
 			Add_Elem_List_Coord(EnteteListeDesCoordonnes,Actuel);	

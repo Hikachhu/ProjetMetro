@@ -14,6 +14,8 @@
 #define TAILLEX 9
 #define TAILLEY 99
 
+
+typedef struct Limitation Limitation;
 typedef struct Coordonnes Coordonnes;
 typedef struct Personnage Personnage;
 typedef struct ElementListePersonnages ElementListePersonnages;
@@ -22,6 +24,15 @@ typedef struct ListeCoordonnes ListeCoordonnes;
 typedef struct EnteteListeCoordonnes EnteteListeCoordonnes;
 typedef struct Train Train;
 
+
+struct Limitation
+{
+	int DebutX;
+	int FinX;
+	int DebutY;
+	int FinY;
+	
+};
 struct Coordonnes
 {
 	int x;

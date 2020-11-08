@@ -1,6 +1,6 @@
 #include "AllIncludes.h"
 
-void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes){
+void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	for(int NombreDeTour=0;NombreDeTour<TourARealise&&Entete->PremierPersonnage!=NULL;NombreDeTour++){
 		mvprintw(0,50,"Numero tour = %2d",NombreDeTour);
 		refresh();
@@ -11,13 +11,13 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTra
 		}
 		else{
 			mvprintw(0,109,"TRAIN EN STATION           ");
-			ChoixDirectionTrain(Entete,TrainActuel);
+			ChoixDirectionTrain(Entete,TrainActuel,Limite);
 		}
 		getch();
 		Parcours_L_Gene(&Erase_In_Gare_Perso_G,Entete);
 		Erase_List_Perso_G();
 		Add_Coord_NULL(Entete,EnteteListeDesCoordonnes);
-		Add_New_Position(Entete,EnteteListeDesCoordonnes);
+		Add_New_Position(Entete,EnteteListeDesCoordonnes,Limite);
 		Verif_Go_In_Train(TrainActuel,Entete->PremierPersonnage,Entete);
 		Rm_List_Coord(EnteteListeDesCoordonnes);
 		// Parcours_L_Gene(&Print_All_Info_Perso_G,Entete);
@@ -33,7 +33,7 @@ void ChoixDirection(Personnage *PersonnageActuel){
 	PersonnageActuel->Direction->y=random()%3-1;
 }
 
-void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes){
+void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	ElementListePersonnages *ListePersonnages=EnteteListeDesPersonnages->PremierPersonnage;
 	Personnage *PersonnageActuel=ListePersonnages->Usager;
 	int FuturX=(PersonnageActuel->Direction->x)+(PersonnageActuel->PositionActuel->x);
@@ -42,13 +42,13 @@ void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteLi
 	for(ElementListePersonnages *ElementPersonnageParcouru=ListePersonnages;ElementPersonnageParcouru!=NULL;ElementPersonnageParcouru=Parcours_L_Gene_Recur(ListePersonnages,PersonnageActuel->ID,FuturX,FuturY,&PossibiliteDeplacement)){
 		PersonnageActuel=ElementPersonnageParcouru->Usager;
 		if(PossibiliteDeplacement==0&&Find_Duo_Coord(EnteteListeDesCoordonnes->PremiereCoordonnes,FuturX,FuturY)==0){
-			if(FuturX>1&&FuturX<TAILLEX){
+			if(FuturX>1+Limite->DebutX&&FuturX<Limite->FinX){
 				(PersonnageActuel->FuturPosition->x)=FuturX;
 			}
 			else{
 				(PersonnageActuel->FuturPosition->x)=PersonnageActuel->PositionActuel->x;	
 			}
-			if(FuturY>1&&FuturY<TAILLEY){
+			if(FuturY>1+Limite->DebutY&&FuturY<Limite->FinY){
 				(PersonnageActuel->FuturPosition->y)=FuturY;
 			}
 			else{
