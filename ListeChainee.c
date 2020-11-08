@@ -190,6 +190,18 @@ void Add_Elem_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Coordon
 	}
 }
 
+void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,int DebutX,int FinX,int DebutY,int FinY){
+	Coordonnes *Actuel=malloc(sizeof(Coordonnes));
+	for(int i =DebutX;i<FinY;i++){
+		for(int j=DebutY;j<FinY;j++){
+			Actuel->x=i;
+			Actuel->y=j;
+			Add_Elem_List_Coord(EnteteListeDesCoordonnes,Actuel);	
+		}
+	}
+	free(Actuel);
+}
+
 ListeCoordonnes* Rm_Elem_List_Coord(ListeCoordonnes *Element){
 	ListeCoordonnes *ElementTemporaire=Element->Suivant;
 	free(Element->Position);

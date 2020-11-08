@@ -5,8 +5,10 @@ void *FonctionnementGareHaut(){
   Train *TrainGeneral=CreationTrain();
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
+  EnteteListeCoordonnes *ListePositionGare=Init_List_Coord();
   
-  
+  void Add_Coord_Gare(ListePositionGare,0,9,0,99){
+
   for (int i = 0; i < 10; i++){
     Add_Perso_In_List(TeteListe,i,(rand()%(TAILLEX-1))+1,(rand()%(TAILLEY-1))+1,0);
   }
@@ -59,7 +61,7 @@ int main(int argc, char *argv[]) {
   AffichageGare();
 
   pthread_create(&GareHaut,NULL,FonctionnementGareHaut(),NULL);
-  pthread_create(&GareBas,NULL,FonctionnementGareBas(),NULL);
+//  pthread_create(&GareBas,NULL,FonctionnementGareBas(),NULL);
   attroff(COLOR_PAIR(1));
   endwin();
   pthread_exit(NULL);

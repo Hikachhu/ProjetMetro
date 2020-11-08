@@ -21,6 +21,7 @@ void Rm_Elem_List_Perso(EnteteListePersonnages *EnteteListesDesPersonnages);
 void Free_List_Perso(EnteteListePersonnages *EnteteListeDesPersonnages);
 EnteteListeCoordonnes* Init_List_Coord();
 void Add_Elem_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Coordonnes *CoordonnesAjoute);
+void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,int DebutX,int FinX,int DebutY,int FinY);
 ListeCoordonnes* Rm_Elem_List_Coord(ListeCoordonnes *Element);
 void Rm_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes);
 int Find_Duo_Coord(ListeCoordonnes *ElementCoordonnes,int FuturX,int FuturY);
