@@ -6,11 +6,13 @@ void *FonctionnementGareHaut(){
   Limite->FinX=9;
   Limite->DebutY=0;
   Limite->FinY=99;
-  Train *TrainGeneral=CreationTrain();
+  Train *TrainGeneral=CreationTrain(1);
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
   EnteteListeCoordonnes *ListePositionGare=Init_List_Coord();
   
+  AffichageGare(Limite);
+
   Add_Coord_Gare(ListePositionGare,Limite);
 
   for (int i = 0; i < 10; i++){
@@ -30,19 +32,21 @@ void *FonctionnementGareHaut(){
 
 void *FonctionnementGareBas(){
   Limitation *Limite=malloc(sizeof(Limite));
-  Limite->DebutX=0;
-  Limite->FinX=9;
+  Limite->DebutX=14;
+  Limite->FinX=23;
   Limite->DebutY=0;
   Limite->FinY=99;
-  Train *TrainGeneral=CreationTrain();
+  Train *TrainGeneral=CreationTrain(2);
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
   EnteteListeCoordonnes *ListePositionGare=Init_List_Coord();
   
+  AffichageGare(Limite);
+
   Add_Coord_Gare(ListePositionGare,Limite);
 
   for (int i = 0; i < 10; i++){
-    Add_Perso_In_List(TeteListe,i,(rand()%(Limite->FinX-Limite->DebutX-1))+1,(rand()%(Limite->FinY-Limite->DebutY-1))+1,0);
+    Add_Perso_In_List(TeteListe,i,(rand()%(Limite->FinX-Limite->DebutX-1))+1+Limite->DebutX,(rand()%(Limite->FinY-Limite->DebutY-1))+1,0);
   }
   for(int i=0;i<6&&TeteListe->PremierPersonnage!=NULL;i++){
     TourParTour(TeteListe,20,(i)%2,TrainGeneral,ListePositionImpossible,Limite);
@@ -68,10 +72,9 @@ int main(int argc, char *argv[]) {
   pthread_t GareBas;
   // mvprintw(10,50,"TAILLEX:%d TAILLEY:%d",TAILLEX,TAILLEY);
 
-  AffichageGare();
 
-  pthread_create(&GareHaut,NULL,FonctionnementGareHaut(),NULL);
-//  pthread_create(&GareBas,NULL,FonctionnementGareBas(),NULL);
+//  pthread_create(&GareHaut,NULL,FonctionnementGareHaut(),NULL);
+  pthread_create(&GareBas,NULL,FonctionnementGareBas(),NULL);
   attroff(COLOR_PAIR(1));
   endwin();
   pthread_exit(NULL);

@@ -1,7 +1,7 @@
 #include "Structure.h"
 
 //ListeChainee.c
-void AffichageGare();
+void AffichageGare(Limitation *Limite);
 EnteteListePersonnages* Init_List_Perso();
 Personnage* Creat_New_Perso(int id,int x,int y,int type);
 void Add_Perso_In_List(EnteteListePersonnages *EnteteListesDesPersonnages,int id,int x,int y,int type);

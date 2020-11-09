@@ -1,11 +1,13 @@
 #include "Structure.h"
 
-Train* CreationTrain(){
+Train* CreationTrain(int NbGare){
   Train *TrainActuel=malloc(sizeof(Train));
   for(int a=0;a<8;a++){
     TrainActuel->PositionPorte[a]=malloc(sizeof(Coordonnes));
   }
-  int XGeneral=11;
+  int XGeneral;
+  if(NbGare==1)XGeneral=11;
+  else XGeneral=13;
   int Position[4]={20,40,60,80};
   for(int a=0;a<4;a++){
     TrainActuel->PositionPorte[a*2]->x=XGeneral;

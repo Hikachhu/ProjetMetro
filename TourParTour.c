@@ -15,7 +15,7 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTra
 		}
 		getch();
 		Parcours_L_Gene(&Erase_In_Gare_Perso_G,Entete);
-		Erase_List_Perso_G();
+		// Erase_List_Perso_G();
 		Add_Coord_NULL(Entete,EnteteListeDesCoordonnes);
 		Add_New_Position(Entete,EnteteListeDesCoordonnes,Limite);
 		Verif_Go_In_Train(TrainActuel,Entete->PremierPersonnage,Entete);

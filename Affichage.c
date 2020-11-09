@@ -1,5 +1,5 @@
 #include "AllIncludes.h"
-void AffichageGare(){
+void AffichageGare(Limitation *Limite){
   usleep(150000);
   FILE *Gare=NULL;
   int Lecture=0;
@@ -12,25 +12,25 @@ void AffichageGare(){
         Lecture=fgetc(Gare);
         switch (Lecture){
           case 48:
-            mvprintw(y,x," ");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY," ");
             break;
           case 49:
-            mvprintw(y,x,"═");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"═");
             break;
           case 50:
-            mvprintw(y,x,"║");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"║");
             break;
           case 51:
-            mvprintw(y,x,"╔");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"╔");
             break;
           case 52:
-            mvprintw(y,x,"╗");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"╗");
             break;
           case 53:
-            mvprintw(y,x,"╝");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"╝");
             break;
           case 54:
-            mvprintw(y,x,"╚");
+            mvprintw(y+Limite->DebutX,x+Limite->DebutY,"╚");
             break;
           case 10:
             x=-1;y++;

@@ -144,7 +144,7 @@ ElementListePersonnages *Rm_Elem_List_Perso_Cible(EnteteListePersonnages *Entete
 	free(ElementTemporaire->Usager);
 	free(ElementTemporaire);
 
-	Parcours_L_Gene(&Erase_List_Perso,EnteteListesDesPersonnages);
+//	Parcours_L_Gene(&Erase_List_Perso,EnteteListesDesPersonnages);
 	// Parcours_L_Gene(&Print_All_Info_Perso_G,EnteteListesDesPersonnages);
 	refresh();
 	return ElemActuel->Suivant;
@@ -255,8 +255,8 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 		for (int i = 0; i < 8&&PersonnageActuel!=NULL; i++){
 
 			refresh();
-			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-3){
-				mvprintw(3+PersonnageActuel->ID,130,"Suppression de %d",PersonnageActuel->ID);
+			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-3||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x+3)){
+			//	mvprintw(3+PersonnageActuel->ID,130,"Suppression de %d",PersonnageActuel->ID);
 				refresh();
 				if(PersonnageActuel->ID==EnteteListeDesPersonnages->PremierPersonnage->Usager->ID){
 					ElementSuivant=ElemPersonnageActuel->Suivant;
