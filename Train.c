@@ -1,14 +1,14 @@
 #include "Structure.h"
 
-Train* CreationTrain(){
+Train* CreationTrain(Limitation *Limite){
   Train *TrainActuel=malloc(2*sizeof(Train));
   for(int j=0;j<2;j++){
     for(int a=0;a<8;a++){
       TrainActuel[j].PositionPorte[a]=malloc(sizeof(Coordonnes));
     }
     int XGeneral;
-    if(j==1)XGeneral=13;
-    else    XGeneral=11;
+    if(j==1)XGeneral=Limite[1].DebutX;
+    else    XGeneral=(Limite[0].FinX+1);
     int Position[4]={20,40,60,80};
     for(int a=0;a<4;a++){
       TrainActuel[j].PositionPorte[a*2]->x=XGeneral;
@@ -22,38 +22,44 @@ Train* CreationTrain(){
 
 void AffichageTrain(Train *TrainActuel){
   for (int a = 0; a < 4; a++){
-    mvprintw(TrainActuel->PositionPorte[a*2]->x,TrainActuel->PositionPorte[a*2]->y+1,"G");
-    mvprintw(TrainActuel->PositionPorte[a*2+1]->x,TrainActuel->PositionPorte[a*2+1]->y+1,"D");
+    mvprintw(TrainActuel->PositionPorte[a*2]->x,TrainActuel->PositionPorte[a*2]->y,"G");
+    mvprintw(TrainActuel->PositionPorte[a*2+1]->x,TrainActuel->PositionPorte[a*2+1]->y,"D");
     refresh();
   }
 }
 
 void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Limite){
   int TXAvant,TXActuel,TXApres,TY,PX,PY;
+
   TY=TXActuel=TrainActuel->PositionPorte[0]->x;
   PX=PersonnageActuel->PositionActuel->y;
   PY=PersonnageActuel->PositionActuel->x;
+
   for(int a=0;a<8;a++){
     TXActuel=TrainActuel->PositionPorte[a]->y;
+
     if(a==0){
-      TXAvant=Limite->DebutX;
+      TXAvant=Limite->DebutY;
     }
     else{
       TXAvant=((TrainActuel->PositionPorte[a-1]->y)+(TXActuel))/2;
     }
+
     if(a==7){
-      TXApres=Limite->FinX;
+      TXApres=Limite->FinY;
     }
     else{
       TXApres=((TrainActuel->PositionPorte[a+1]->y)+(TXActuel))/2;
     }
+
     if(TXActuel==PX){
       PersonnageActuel->Direction->y=0;
-    }else if(TXAvant<PX&&PX<TXActuel){
+    }else if(TXAvant<=PX&&PX<TXActuel){
       PersonnageActuel->Direction->y=1;
-    }else if(TXActuel<PX && PX<TXApres){
+    }else if(TXActuel<PX && PX<=TXApres){
       PersonnageActuel->Direction->y=-1;
     }
+
     if(TY>PY){
       PersonnageActuel->Direction->x=1;
     }else{

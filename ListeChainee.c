@@ -75,7 +75,7 @@ void Print_Futur_Position_Perso_G(Personnage *PersonnageActuel){
 void Print_In_Gare_Perso_G(Personnage *PersonnageActuel){
 	int X=PersonnageActuel->PositionActuel->x+1;
 	int Y=PersonnageActuel->PositionActuel->y+1;
-	mvprintw(X,Y,"%d",PersonnageActuel->ID);	
+	mvprintw(X,Y,"%c",PersonnageActuel->ID+'a');	
 }
 
 void Erase_List_Perso(Personnage *PersonnageActuel){
@@ -264,11 +264,11 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 		}
 		PersonnageActuel=ElemPersonnageActuel->Usager;
 		ElementSuivant=ElemPersonnageActuel->Suivant;
-			// mvprintw(2,150,"perso %2d x %d y %2d",PersonnageActuel->ID,PersonnageActuel->PositionActuel->x,PersonnageActuel->PositionActuel->y);
-			// refresh();
-	//		getch();
+		// mvprintw(2,150,"perso %c x %d y %2d",PersonnageActuel->ID+'a',PersonnageActuel->PositionActuel->x,PersonnageActuel->PositionActuel->y);
+		// refresh();
+		// getch();
 		for (int i = 0; i < 8&&PersonnageActuel!=NULL; i++){
-			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-3||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x+3)){
+			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-2||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x+2)){
 				mvprintw(3+PersonnageActuel->ID,150,"Suppression de %d",PersonnageActuel->ID);
 				refresh();
 	//			getch();

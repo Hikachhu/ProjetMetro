@@ -37,7 +37,7 @@ void New_Pos_To_Current_Pos(Personnage *PersonnageActuel);
 int Verif_Futur_Pos_Exist(EnteteListePersonnages *EnteteListeBase,int IdActuel,int XVerif,int YVerif);
 
 //Train.c
-Train* CreationTrain();
+Train* CreationTrain(Limitation *Limite);
 void AffichageTrain(Train *TrainActuel);
 int TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Limite);
 void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train *TrainActuel,Limitation *Limite);

@@ -3,15 +3,15 @@
 void FonctionnementEnsembleGare(){
   Limitation *Limite=malloc(2*sizeof(Limite));
   Limite[0].DebutX=0;
-  Limite[0].FinX=9;
+  Limite[0].FinX=Limite[0].DebutX+9;
   Limite[0].DebutY=0;
   Limite[0].FinY=99;
-  Limite[1].DebutX=14;
-  Limite[1].FinX=23;
+  Limite[1].DebutX=27;
+  Limite[1].FinX=Limite[1].DebutX+9;
   Limite[1].DebutY=0;
   Limite[1].FinY=99;
 
-  Train *TrainGeneral=CreationTrain();
+  Train *TrainGeneral=CreationTrain(Limite);
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
   EnteteListeCoordonnes *ListePositionGare =Init_List_Coord();
@@ -27,12 +27,12 @@ void FonctionnementEnsembleGare(){
   AffichageTrain(&TrainGeneral[0]);
   AffichageTrain(&TrainGeneral[1]);
 
-  for (int i = 0; i < 10; i++){
-    Add_Perso_In_List(&TeteListe[0],i,(rand()%(Limite[0].FinX-Limite[0].DebutX-1))+1+Limite[0].DebutX,(rand()%(Limite[0].FinY-Limite[0].DebutY-1))+1,0);
+  for (int i = 0; i < 26; i++){
+    Add_Perso_In_List(&TeteListe[0],i,(rand()%(Limite[0].FinX-Limite[0].DebutX-1))+Limite[0].DebutX+1,(rand()%(Limite[0].FinY-Limite[0].DebutY-1))+1,0);
   }
 
-  for (int i = 0; i < 10; i++){
-    Add_Perso_In_List(&TeteListe[1],i,(rand()%(Limite[1].FinX-Limite[1].DebutX-1))+1+Limite[1].DebutX,(rand()%(Limite[1].FinY-Limite[1].DebutY-1))+1,0);
+  for (int i = 0; i < 26; i++){
+    Add_Perso_In_List(&TeteListe[1],i,(rand()%(Limite[1].FinX-Limite[1].DebutX-1))+Limite[1].DebutX+1,(rand()%(Limite[1].FinY-Limite[1].DebutY-1))+1,0);
   }
 
   for(int i=0;i<6&&TeteListe[0].PremierPersonnage!=NULL&&TeteListe[1].PremierPersonnage!=NULL;i++){

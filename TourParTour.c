@@ -2,38 +2,40 @@
 
 void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	if(Entete[0].PremierPersonnage!=NULL&&Entete[1].PremierPersonnage!=NULL){
-		for(int NombreDeTour=0;NombreDeTour<TourARealise&&Entete[0].PremierPersonnage!=NULL&&Entete[1].PremierPersonnage!=NULL;NombreDeTour++){
+		for(int NombreDeTour=0;NombreDeTour<TourARealise&&(Entete[0].PremierPersonnage!=NULL||Entete[1].PremierPersonnage!=NULL);NombreDeTour++){
 			mvprintw(0,50,"Numero tour = %2d",NombreDeTour);
 			refresh();
 			
-			Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[0]);
-			Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[1]);
+			if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[0]);
+			if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[1]);
 
 			if(PresenceTrain==0){
 				mvprintw(0,109,"PROCHAIN TRAIN DANS %2d MIN",TourARealise-NombreDeTour);
-				Parcours_L_Gene(&ChoixDirection,&Entete[0]);
-				Parcours_L_Gene(&ChoixDirection,&Entete[1]);
+				if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[0]);
+				if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[1]);
 			}
 			else{
 				mvprintw(0,109,"TRAIN EN STATION           ");
-				ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
-				ChoixDirectionTrain(&Entete[1],&TrainActuel[1],&Limite[1]);
+				if(Entete[0].PremierPersonnage!=NULL)ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
+				if(Entete[1].PremierPersonnage!=NULL)ChoixDirectionTrain(&Entete[1],&TrainActuel[1],&Limite[1]);
 			}
 			getch();
-			Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[0]);
-			Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[1]);
+			if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[0]);
+			if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[1]);
 
-			Add_Coord_NULL(&Entete[0],&EnteteListeDesCoordonnes[0]);
-			Add_Coord_NULL(&Entete[1],&EnteteListeDesCoordonnes[1]);
+			if(Entete[0].PremierPersonnage!=NULL)Add_Coord_NULL(&Entete[0],&EnteteListeDesCoordonnes[0]);
+			if(Entete[1].PremierPersonnage!=NULL)Add_Coord_NULL(&Entete[1],&EnteteListeDesCoordonnes[1]);
 
-			Add_New_Position(&Entete[0],&EnteteListeDesCoordonnes[0],&Limite[0]);
-			Add_New_Position(&Entete[1],&EnteteListeDesCoordonnes[1],&Limite[1]);
+			if(Entete[0].PremierPersonnage!=NULL)Add_New_Position(&Entete[0],&EnteteListeDesCoordonnes[0],&Limite[0]);
+			if(Entete[1].PremierPersonnage!=NULL)Add_New_Position(&Entete[1],&EnteteListeDesCoordonnes[1],&Limite[1]);
+			
+			if(PresenceTrain==1){
+				if(Entete[0].PremierPersonnage!=NULL)Verif_Go_In_Train(&TrainActuel[0],Entete[0].PremierPersonnage,&Entete[0]);
+				if(Entete[1].PremierPersonnage!=NULL)Verif_Go_In_Train(&TrainActuel[1],Entete[1].PremierPersonnage,&Entete[1]);
+			}
 
-			Verif_Go_In_Train(&TrainActuel[0],Entete[0].PremierPersonnage,&Entete[0]);
-			Verif_Go_In_Train(&TrainActuel[1],Entete[1].PremierPersonnage,&Entete[1]);
-
-			Rm_List_Coord(&EnteteListeDesCoordonnes[0]);
-			Rm_List_Coord(&EnteteListeDesCoordonnes[1]);
+			if(Entete[0].PremierPersonnage!=NULL)Rm_List_Coord(&EnteteListeDesCoordonnes[0]);
+			if(Entete[1].PremierPersonnage!=NULL)Rm_List_Coord(&EnteteListeDesCoordonnes[1]);
 		}
 		if(Entete->PremierPersonnage==NULL){
 			mvprintw(30,0,"TOUT LE MONDE EST DANS LE TRAIN");
