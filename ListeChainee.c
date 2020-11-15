@@ -2,36 +2,39 @@
 
 EnteteListePersonnages* Init_List_Perso(){
 	EnteteListePersonnages* EnteteListesDesPersonnages;
-	EnteteListesDesPersonnages=malloc(sizeof(EnteteListePersonnages));
-	EnteteListesDesPersonnages->PremierPersonnage=NULL;
-	EnteteListesDesPersonnages->DernierPersonnage=NULL;
-
+	EnteteListesDesPersonnages=malloc(2*sizeof(EnteteListePersonnages));
+	for(int j=0;j<2;j++){
+		EnteteListesDesPersonnages[j].PremierPersonnage=NULL;
+		EnteteListesDesPersonnages[j].DernierPersonnage=NULL;
+	}
 	return EnteteListesDesPersonnages;
 }
 
 Personnage* Creat_New_Perso(int id,int x,int y,int type){
+	
 	Personnage *NouvellePersonne=NULL;
-	NouvellePersonne=(Personnage*)malloc(sizeof(Personnage));
-
-	Coordonnes *Position=malloc(sizeof(Coordonnes));
-
-	NouvellePersonne->PositionActuel=Position;
-	NouvellePersonne->Direction=malloc(sizeof(Coordonnes));
-	NouvellePersonne->FuturPosition=malloc(sizeof(Coordonnes));
-
-	(*NouvellePersonne).ID=id;
-	NouvellePersonne->Type=type;
-
-	NouvellePersonne->PositionActuel->x=x;
-	NouvellePersonne->PositionActuel->y=y;
-
-	NouvellePersonne->Direction->x=0;
-	NouvellePersonne->Direction->y=0;
+	NouvellePersonne=(Personnage*)malloc(2*sizeof(Personnage));
+	Coordonnes *Position=malloc(2*sizeof(Coordonnes));
 	
-	NouvellePersonne->FuturPosition->x=0;
-	NouvellePersonne->FuturPosition->y=0;
-	
+	for(int i=0;i<2;i++){
 
+		NouvellePersonne[i].PositionActuel=Position;
+		NouvellePersonne[i].Direction=malloc(sizeof(Coordonnes));
+		NouvellePersonne[i].FuturPosition=malloc(sizeof(Coordonnes));
+
+		NouvellePersonne[i].ID=id;
+		NouvellePersonne[i].Type=type;
+
+		NouvellePersonne[i].PositionActuel->x=x;
+		NouvellePersonne[i].PositionActuel->y=y;
+
+		NouvellePersonne[i].Direction->x=0;
+		NouvellePersonne[i].Direction->y=0;
+		
+		NouvellePersonne[i].FuturPosition->x=0;
+		NouvellePersonne[i].FuturPosition->y=0;
+	
+	}
 	return NouvellePersonne;
 }
 
@@ -170,8 +173,10 @@ void Free_List_Perso(EnteteListePersonnages *EnteteListeDesPersonnages){
 }
 
 EnteteListeCoordonnes* Init_List_Coord(){
-	EnteteListeCoordonnes *EnteteListeDesCoordonnes=malloc(sizeof(EnteteListeDesCoordonnes));
-	EnteteListeDesCoordonnes->PremiereCoordonnes=NULL;
+	EnteteListeCoordonnes *EnteteListeDesCoordonnes=malloc(2*sizeof(EnteteListeDesCoordonnes));
+	for(int j=0;j<2;j++){
+		EnteteListeDesCoordonnes[j].PremiereCoordonnes=NULL;
+	}
 	return EnteteListeDesCoordonnes;
 }
 
@@ -212,8 +217,13 @@ ListeCoordonnes* Rm_Elem_List_Coord(ListeCoordonnes *Element){
 
 void Rm_List_Coord(EnteteListeCoordonnes *EnteteListeDesCoordonnes){
 	do{
+		if(EnteteListeDesCoordonnes->PremiereCoordonnes==NULL){
+			break;
+		}
+		// printf("A;%p\n",EnteteListeDesCoordonnes->PremiereCoordonnes);
 		EnteteListeDesCoordonnes->PremiereCoordonnes=Rm_Elem_List_Coord(EnteteListeDesCoordonnes->PremiereCoordonnes);
-	}while(EnteteListeDesCoordonnes->PremiereCoordonnes!=NULL);
+		// printf("P:%p\n",EnteteListeDesCoordonnes->PremiereCoordonnes);
+		}while(EnteteListeDesCoordonnes->PremiereCoordonnes!=NULL);
 	EnteteListeDesCoordonnes->DerniereCoordonnes=NULL;
 }
 
@@ -244,6 +254,8 @@ void Print_List_Coord(ListeCoordonnes *ElementCoordonnes){
 }
 
 void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnageActuel,EnteteListePersonnages *EnteteListeDesPersonnages){
+
+//	AfficheCoordonnesTrain(TrainActuel);
 	Personnage *PersonnageActuel=NULL;
 	ElementListePersonnages *ElementSuivant=NULL;
 	do{
@@ -252,12 +264,14 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 		}
 		PersonnageActuel=ElemPersonnageActuel->Usager;
 		ElementSuivant=ElemPersonnageActuel->Suivant;
+			// mvprintw(2,150,"perso %2d x %d y %2d",PersonnageActuel->ID,PersonnageActuel->PositionActuel->x,PersonnageActuel->PositionActuel->y);
+			// refresh();
+	//		getch();
 		for (int i = 0; i < 8&&PersonnageActuel!=NULL; i++){
-
-			refresh();
 			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-3||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x+3)){
-			//	mvprintw(3+PersonnageActuel->ID,130,"Suppression de %d",PersonnageActuel->ID);
+				mvprintw(3+PersonnageActuel->ID,150,"Suppression de %d",PersonnageActuel->ID);
 				refresh();
+	//			getch();
 				if(PersonnageActuel->ID==EnteteListeDesPersonnages->PremierPersonnage->Usager->ID){
 					ElementSuivant=ElemPersonnageActuel->Suivant;
 					Rm_Elem_List_Perso(EnteteListeDesPersonnages);

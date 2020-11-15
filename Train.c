@@ -1,19 +1,21 @@
 #include "Structure.h"
 
-Train* CreationTrain(int NbGare){
-  Train *TrainActuel=malloc(sizeof(Train));
-  for(int a=0;a<8;a++){
-    TrainActuel->PositionPorte[a]=malloc(sizeof(Coordonnes));
-  }
-  int XGeneral;
-  if(NbGare==1)XGeneral=11;
-  else XGeneral=13;
-  int Position[4]={20,40,60,80};
-  for(int a=0;a<4;a++){
-    TrainActuel->PositionPorte[a*2]->x=XGeneral;
-    TrainActuel->PositionPorte[a*2]->y=Position[a];
-    TrainActuel->PositionPorte[(a*2)+1]->x=XGeneral;
-    TrainActuel->PositionPorte[(a*2)+1]->y=Position[a]+1;
+Train* CreationTrain(){
+  Train *TrainActuel=malloc(2*sizeof(Train));
+  for(int j=0;j<2;j++){
+    for(int a=0;a<8;a++){
+      TrainActuel[j].PositionPorte[a]=malloc(sizeof(Coordonnes));
+    }
+    int XGeneral;
+    if(j==1)XGeneral=13;
+    else    XGeneral=11;
+    int Position[4]={20,40,60,80};
+    for(int a=0;a<4;a++){
+      TrainActuel[j].PositionPorte[a*2]->x=XGeneral;
+      TrainActuel[j].PositionPorte[a*2]->y=Position[a];
+      TrainActuel[j].PositionPorte[(a*2)+1]->x=XGeneral;
+      TrainActuel[j].PositionPorte[(a*2)+1]->y=Position[a]+1;
+    }
   }
   return TrainActuel;
 }
@@ -73,7 +75,8 @@ void ChoixDirectionTrain(EnteteListePersonnages *EnteteListeDesPersonnages,Train
 
 void AfficheCoordonnesTrain(Train *TrainActuel){
   for(int i=0;i<8;i++){
-    mvprintw(30+i,1,"%d x:%d y:%d",i,TrainActuel->PositionPorte[i]->x,TrainActuel->PositionPorte[i]->y);
+    mvprintw(i+14,150,"%d x:%d y:%d",i,TrainActuel->PositionPorte[i]->x,TrainActuel->PositionPorte[i]->y);
   }
   refresh();
+  getch();
 }
