@@ -1,6 +1,7 @@
 # ProjetMetro
 
 Projet de simulation de comportement de personnage dans une gare de metro
+ESIEA 3A S1
 
 ## Biblioteque necessaire:
 
