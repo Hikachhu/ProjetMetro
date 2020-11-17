@@ -1,4 +1,5 @@
 #include "../../Structure.h"
+#include "../../Includes/ListeChaine/ListePersonnages.h"
 
 void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnageActuel,EnteteListePersonnages *EnteteListeDesPersonnages){
 //	AfficheCoordonnesTrain(TrainActuel);

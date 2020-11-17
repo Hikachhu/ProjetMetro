@@ -1,4 +1,10 @@
-#include "AllIncludes.h"
+#include "Includes/Affichage/AffichageGare.h"
+
+#include "Includes/ListeChaine/ListePersonnages.h"
+#include "Includes/ListeChaine/ListeCoordonnes.h"
+#include "Includes/ListeChaine/Train.h"
+
+#include "Includes/TourParTour/TourParTour.h"
 
 void FonctionnementEnsembleGare(){
   Limitation *Limite=malloc(2*sizeof(Limite));
