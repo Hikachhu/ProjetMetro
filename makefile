@@ -1,20 +1,33 @@
 CFLAGS=-Wall -lncursesw -lm -lpthread
 CC=gcc 
-OBJS=obj
 EXE=SimulateurCompile
+INCLUDE=Includes
 
+SRC  := $(wildcard src/*/*.c) main.c
+OBJS := $(patsubst src/%.c, obj/%.o, $(SRC))
 
-$(OBJS)/%.o: %.c
-	@mkdir -p $(@D)
-	$(CC) -o $@ -c -g $< $(CFLAGS)
-all: $(OBJS)/Train.o $(OBJS)/ListeChainee.o $(OBJS)/TourParTour.o $(OBJS)/Affichage.o $(OBJS)/main.o 
-	gcc -o $(EXE) $(OBJS)/Train.o $(OBJS)/ListeChainee.o $(OBJS)/TourParTour.o $(OBJS)/Affichage.o $(OBJS)/main.o $(CFLAGS)
+.PHONY: all
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) -o $(EXE) $(OBJS) $(CFLAGS) -I $(INCLUDE)
+
+obj/%.o: src/%.c
+	$(CC) -o $@ -c -g $^ $(CFLAGS)
+
+TEST:
+	@echo $(SRC)
+	@echo $(OBJS)
+
 clean:
-	rm $(OBJS)/*.o
+	rm -rf obj
+
 exec:
 	./$(EXE)
 	reset
+
 help:
 	@echo "all -> compilation du projet\nclean-> supprime les .o\nexec -> execute le projet compilé\n"
+
 debug:
 	@gdb ./$(EXEC)

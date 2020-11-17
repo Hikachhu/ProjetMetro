@@ -1,4 +1,7 @@
-#include "AllIncludes.h"
+#include "../../Includes/ListeChaine/ListeCoordonnes.h"
+#include "../../Includes/ListeChaine/ListePersonnages.h"
+#include "../../Includes/ListeChaine/AffichagePerso.h"
+#include "../../Includes/ListeChaine/Train.h"
 
 void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	if(Entete[0].PremierPersonnage!=NULL&&Entete[1].PremierPersonnage!=NULL){
@@ -44,10 +47,6 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTra
 	}
 }
 
-void ChoixDirection(Personnage *PersonnageActuel){
-	PersonnageActuel->Direction->x=random()%3-1;
-	PersonnageActuel->Direction->y=random()%3-1;
-}
 
 void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	ElementListePersonnages *ListePersonnages=EnteteListeDesPersonnages->PremierPersonnage;
@@ -58,7 +57,7 @@ void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteLi
 	for(ElementListePersonnages *ElementPersonnageParcouru=ListePersonnages;ElementPersonnageParcouru!=NULL;ElementPersonnageParcouru=Parcours_L_Gene_Recur(ListePersonnages,PersonnageActuel->ID,FuturX,FuturY,&PossibiliteDeplacement)){
 		PersonnageActuel=ElementPersonnageParcouru->Usager;
 		if(PossibiliteDeplacement==0&&Find_Duo_Coord(EnteteListeDesCoordonnes->PremiereCoordonnes,FuturX,FuturY)==0){
-			if(FuturX>1+cdLimite->DebutX&&FuturX<Limite->FinX){
+			if(FuturX>1+Limite->DebutX&&FuturX<Limite->FinX){
 				(PersonnageActuel->FuturPosition->x)=FuturX;
 			}
 			else{
@@ -86,9 +85,4 @@ void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteLi
 			FuturY=(ElementPersonnageParcouru->Suivant->Usager->Direction->y)+(ElementPersonnageParcouru->Suivant->Usager->PositionActuel->y);
 		}
 	}
-}
-
-void New_Pos_To_Current_Pos(Personnage *PersonnageActuel){
-	PersonnageActuel->PositionActuel->x=PersonnageActuel->FuturPosition->x;
-	PersonnageActuel->PositionActuel->y=PersonnageActuel->FuturPosition->y;
 }
