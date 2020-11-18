@@ -1,4 +1,5 @@
 #include "../../Structure.h"
+#include "../../Includes/ListeChaine/ListeCoordonnes.h"
 
 void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	Coordonnes *Actuel=malloc(sizeof(Coordonnes));

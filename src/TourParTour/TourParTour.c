@@ -2,27 +2,65 @@
 #include "../../Includes/ListeChaine/ListePersonnages.h"
 #include "../../Includes/ListeChaine/AffichagePerso.h"
 #include "../../Includes/ListeChaine/Train.h"
+#include "../../Includes/TourParTour/TourParTour.h"
+#include "../../Includes/Affichage/AffichageGare.h"
+#include "../../Includes/Affichage/FonctionsUtiles.h"
 
 void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTrain,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	if(Entete[0].PremierPersonnage!=NULL&&Entete[1].PremierPersonnage!=NULL){
+		char **train = initialisation_train();
+	    char train_txt[] = "Texture/train";
+	    remplissage_mat(train, train_txt);
+	    int DepartHaut,ArriveHaut,DepartBas,ArriveBas;
+
 		for(int NombreDeTour=0;NombreDeTour<TourARealise&&(Entete[0].PremierPersonnage!=NULL||Entete[1].PremierPersonnage!=NULL);NombreDeTour++){
 			mvprintw(0,50,"Numero tour = %2d",NombreDeTour);
 			refresh();
-			
+
 			if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[0]);
 			if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&Print_In_Gare_Perso_G,&Entete[1]);
-
+			
 			if(PresenceTrain==0){
+				if(NombreDeTour!=TourARealise-1){
+					DepartBas=Long_metro-(NombreDeTour-1)*10;
+					ArriveBas=Long_metro-(NombreDeTour)*10;
+					DepartHaut=-Long_train+(NombreDeTour-1)*10;
+					ArriveHaut=-Long_train+(NombreDeTour)*10;
+				}else{
+					DepartBas=ArriveBas;
+					ArriveBas-=14;
+					DepartHaut=ArriveHaut;
+					ArriveHaut+=14;
+				}
+				deplacementTrain(train,DepartBas,23,ArriveBas,-1);
+				deplacementTrain(train,DepartHaut,13,ArriveHaut,1);
 				mvprintw(0,109,"PROCHAIN TRAIN DANS %2d MIN",TourARealise-NombreDeTour);
 				if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[0]);
 				if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[1]);
 			}
-			else{
+			else if(PresenceTrain==1){
+				if(NombreDeTour==0){
+			    	trainEnGare('b');
+			    	trainEnGare('h');
+			    }
 				mvprintw(0,109,"TRAIN EN STATION           ");
 				if(Entete[0].PremierPersonnage!=NULL)ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
 				if(Entete[1].PremierPersonnage!=NULL)ChoixDirectionTrain(&Entete[1],&TrainActuel[1],&Limite[1]);
 			}
+			else{
+				DepartBas=13-(NombreDeTour)*10;
+				ArriveBas=13-(NombreDeTour+1)*10;
+				DepartHaut=13+(NombreDeTour)*10;
+				ArriveHaut=13+(NombreDeTour+1)*10;
+
+				deplacementTrain(train,DepartBas,23,ArriveBas,-1);
+				deplacementTrain(train,DepartHaut,13,ArriveHaut,1);
+				mvprintw(0,109,"PROCHAIN TRAIN DANS %2d MIN",TourARealise-NombreDeTour);
+				if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[0]);
+				if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&ChoixDirection,&Entete[1]);
+			}
 			getch();
+			
 			if(Entete[0].PremierPersonnage!=NULL)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[0]);
 			if(Entete[1].PremierPersonnage!=NULL)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[1]);
 
@@ -46,7 +84,6 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,int PresenceTra
 		refresh();
 	}
 }
-
 
 void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
 	ElementListePersonnages *ListePersonnages=EnteteListeDesPersonnages->PremierPersonnage;
@@ -74,7 +111,6 @@ void Add_New_Position(EnteteListePersonnages *EnteteListeDesPersonnages,EnteteLi
 			(PersonnageActuel->FuturPosition->x)=(PersonnageActuel->PositionActuel->x);
 			(PersonnageActuel->FuturPosition->y)=(PersonnageActuel->PositionActuel->y);
 //			mvprintw(10+PersonnageActuel->ID,140,"%d <- NON MOUVEMENT",PersonnageActuel->ID);
-
 		}
 		New_Pos_To_Current_Pos(PersonnageActuel);
 		refresh();

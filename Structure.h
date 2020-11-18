@@ -13,9 +13,29 @@
 	#include <time.h>
 	#include <unistd.h>
 	#include <wchar.h>
+
 	#define TAILLEX 9
 	#define TAILLEY 99
 
+	#define HautDebutX 5
+	#define HautFinX 10
+	#define HautDebutY 16
+	#define HautFinY 141
+	#define BasDebutX 32
+	#define BasFinX 37
+	#define BasDebutY
+	#define BasFinY
+
+
+	#define Haut_train 5
+	#define Long_train 131
+
+	#define Haut_metro 42
+	#define Long_metro 156
+
+	#define vitesse_Train 40000
+
+	#define trainSuivant 20
 
 	typedef struct Limitation Limitation;
 	typedef struct Coordonnes Coordonnes;

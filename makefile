@@ -20,7 +20,7 @@ TEST:
 	@echo $(OBJS)
 
 clean:
-	rm -rf obj
+	rm obj/*/*.o
 
 exec:
 	./$(EXE)

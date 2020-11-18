@@ -11,14 +11,8 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 		}
 		PersonnageActuel=ElemPersonnageActuel->Usager;
 		ElementSuivant=ElemPersonnageActuel->Suivant;
-		// mvprintw(2,150,"perso %c x %d y %2d",PersonnageActuel->ID+'a',PersonnageActuel->PositionActuel->x,PersonnageActuel->PositionActuel->y);
-		// refresh();
-		// getch();
 		for (int i = 0; i < 8&&PersonnageActuel!=NULL; i++){
-			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-2||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x+2)){
-				mvprintw(3+PersonnageActuel->ID,150,"Suppression de %d",PersonnageActuel->ID);
-				refresh();
-	//			getch();
+			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-2||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x)){
 				if(PersonnageActuel->ID==EnteteListeDesPersonnages->PremierPersonnage->Usager->ID){
 					ElementSuivant=ElemPersonnageActuel->Suivant;
 					Rm_Elem_List_Perso(EnteteListeDesPersonnages);
@@ -33,9 +27,7 @@ void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnag
 				}
 			}
 		}
-		
 		ElemPersonnageActuel=ElementSuivant;
-		
 	}while(ElemPersonnageActuel!=NULL&&EnteteListeDesPersonnages->PremierPersonnage!=NULL);
 }
 
@@ -46,9 +38,9 @@ Train* CreationTrain(Limitation *Limite){
       TrainActuel[j].PositionPorte[a]=malloc(sizeof(Coordonnes));
     }
     int XGeneral;
-    if(j==1)XGeneral=Limite[1].DebutX;
+    if(j==1)XGeneral=Limite[1].DebutX+2;
     else    XGeneral=(Limite[0].FinX+1);
-    int Position[4]={20,40,60,80};
+    int Position[4]={43,65,87,109};
     for(int a=0;a<4;a++){
       TrainActuel[j].PositionPorte[a*2]->x=XGeneral;
       TrainActuel[j].PositionPorte[a*2]->y=Position[a];
