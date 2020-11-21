@@ -195,7 +195,7 @@ void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnag
 		}
 		PersonnageActuel->Direction->x=xDirection;
 		PersonnageActuel->Direction->y=yDirection;
-		mvprintw(34+6*Listes,160,"Personnage:%c xDirection%d yDirection:%d",PersonnageActuel->ID+'a',PersonnageActuel->Direction->x,PersonnageActuel->Direction->y);
+		mvprintw(34+6*Listes,160,"Personnage:%c xDirection%2d yDirection:%2d",PersonnageActuel->ID+'a',PersonnageActuel->Direction->x,PersonnageActuel->Direction->y);
 		refresh();
 	}
 }

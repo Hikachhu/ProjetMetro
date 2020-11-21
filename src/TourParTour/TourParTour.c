@@ -23,12 +23,28 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 				
 				if(PresenceTrain==0||PresenceTrain==2){
 					if(PresenceTrain==0){
-						mvprintw(0,109,"PROCHAIN TRAIN DANS %2d MIN",TourARealise-NombreDeTour);
+						mvprintw(3,4,"%2d MIN",TourARealise-NombreDeTour);
+						mvprintw(3,143,"%2d MIN",TourARealise-NombreDeTour);
+						mvprintw(35,4,"%2d MIN",TourARealise-NombreDeTour);
+						mvprintw(35,143,"%2d MIN",TourARealise-NombreDeTour);
+
+						mvprintw(5,4,"%2d MIN",2*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(5,143,"%2d MIN",2*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(37,4,"%2d MIN",2*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(37,143,"%2d MIN",2*TourARealise+(TourARealise-NombreDeTour));
 						SORTIE=9;
 					}
 					else {
 						SORTIE=20;
-						mvprintw(0,109,"PROCHAIN TRAIN DANS %2d MIN",2*TourARealise-NombreDeTour);	
+						mvprintw(3,4,"%2d MIN",TourARealise-NombreDeTour+17);
+						mvprintw(3,143,"%2d MIN",TourARealise-NombreDeTour+17);
+						mvprintw(35,4,"%2d MIN",TourARealise-NombreDeTour+17);
+						mvprintw(35,143,"%2d MIN",TourARealise-NombreDeTour+17);
+
+						mvprintw(5,4,"%2d MIN",3*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(5,143,"%2d MIN",3*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(37,4,"%2d MIN",3*TourARealise+(TourARealise-NombreDeTour));
+						mvprintw(37,143,"%2d MIN",3*TourARealise+(TourARealise-NombreDeTour));
 					} 
 					for(MouvementTrain=0;MouvementTrain<SORTIE;MouvementTrain++){
 						if(NombreDeTour!=TourARealise){

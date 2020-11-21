@@ -1,11 +1,13 @@
 #include "Includes/Affichage/AffichageGare.h"
 #include "Includes/Affichage/FonctionsUtiles.h"
+#include "Includes/Affichage/EcranAccueil.h"
 
 #include "Includes/ListeChaine/ListePersonnages.h"
 #include "Includes/ListeChaine/ListeCoordonnes.h"
 #include "Includes/ListeChaine/Train.h"
 
 #include "Includes/TourParTour/TourParTour.h"
+
 
 void FonctionnementEnsembleGare(){
   Limitation *Limite=malloc(2*sizeof(Limite));
@@ -64,8 +66,9 @@ int main(int argc, char *argv[]) {
   init_pair(2,COLOR_WHITE,COLOR_BLACK);
   attron(COLOR_PAIR(1));
 
+  AffichageEcranAccueil();
+
   char **metro = initialisation_metro();
- 
 
   char metro_txt[] = "Texture/metro";
 
