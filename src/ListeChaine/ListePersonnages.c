@@ -126,3 +126,76 @@ void New_Pos_To_Current_Pos(Personnage *PersonnageActuel){
 	PersonnageActuel->PositionActuel->x=PersonnageActuel->FuturPosition->x;
 	PersonnageActuel->PositionActuel->y=PersonnageActuel->FuturPosition->y;
 }
+
+void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes){
+	char Direction;
+	int IdPersonnage;
+	char charPersonnage;
+
+	if(Listes==0) mvprintw(29+Listes*6,160,"Dans la gare du haut");
+	else mvprintw(29+Listes*6,160,"Dans la gare du bas");	
+	
+	mvprintw(30+6*Listes,160,"Nom d'un personnage à controler");
+	refresh();
+	scanf("%c",&charPersonnage);
+	IdPersonnage=(int)charPersonnage-97;
+	mvprintw(31+6*Listes,160,"%c",IdPersonnage+'a');
+	refresh();
+
+	mvprintw(32+6*Listes,160,"Quelle direction ? azeqsdwc");
+	refresh();
+	scanf("%c",&Direction);
+	mvprintw(33+6*Listes,160,"%c",Direction);
+
+	int xDirection=0,yDirection=0;
+	switch(Direction){
+		case 'a':
+			xDirection=-1;
+			yDirection=-1;
+			break;
+		case 'z':
+			xDirection=-1;
+			yDirection=0;
+			break;
+		case 'e':
+			xDirection=-1;
+			yDirection=1;
+			break;
+		case 'd':
+			xDirection=0;
+			yDirection=1;
+			break;
+		case 'c':
+			xDirection=1;
+			yDirection=1;
+			break;
+		case 'x':
+			xDirection=1;
+			yDirection=0;
+			break;
+		case 'w':
+			xDirection=1;
+			yDirection=-1;
+			break;
+		case 'q':
+			xDirection=0;
+			yDirection=-1;
+			break;
+		case 's':
+			xDirection=0;
+			yDirection=0;
+			break;
+	}
+	if(EnteteListesDesPersonnages->PremierPersonnage!=NULL&&(IdPersonnage>=0&&IdPersonnage<=25)){
+		ElementListePersonnages *Actuel=EnteteListesDesPersonnages->PremierPersonnage;
+		Personnage *PersonnageActuel=Actuel->Usager;
+		while(Actuel!=NULL&&PersonnageActuel->ID!=IdPersonnage){
+			PersonnageActuel=Actuel->Usager;
+			Actuel=Actuel->Suivant;
+		}
+		PersonnageActuel->Direction->x=xDirection;
+		PersonnageActuel->Direction->y=yDirection;
+		mvprintw(34+6*Listes,160,"Personnage:%c xDirection%d yDirection:%d",PersonnageActuel->ID+'a',PersonnageActuel->Direction->x,PersonnageActuel->Direction->y);
+		refresh();
+	}
+}

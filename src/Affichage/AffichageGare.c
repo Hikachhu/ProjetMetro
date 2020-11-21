@@ -2,10 +2,6 @@
 #include "../../Includes/Affichage/AffichageGare.h"
 #include "../../Includes/Affichage/FonctionsUtiles.h"
 
-void AffichageGare(){
-  fopen("Texture/Gare.txt","r");
-}
-
 char **initialisation_train()
 {
     char **mat = NULL;
@@ -56,7 +52,7 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
     while(xCache < stop && verif > 0)
     {
         xCache = xCache + verif; // vitesse du train
-        usleep(5000);
+        usleep(1000);
         refresh();
 
         if (xCache > xbleue){
@@ -67,7 +63,7 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
             x = 0;
             for (int j = 0; j < Long_train - compt; j++)
             {
-                convertion(train,i,j,y,x + xCache);
+                if(x+xCache<156)convertion(train,i,j,y,x + xCache);
                 x++;
                 refresh();
             }
@@ -79,7 +75,7 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
     while(verif < 0 && xCache > stop)
     {
         xCache = xCache + verif; // vitesse du train
-        usleep(5000);
+        usleep(1000);
         refresh();
 
         for (int i = 0; i < Haut_train; i++)
@@ -87,7 +83,7 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
             x = 0;
             for (int j = 0; j < Long_train ; j++)
             {
-                convertion(train,i,j,y,x + xCache);
+                if(x+xCache<156)convertion(train,i,j,y,x + xCache);
                 x++;
                 refresh();
             }

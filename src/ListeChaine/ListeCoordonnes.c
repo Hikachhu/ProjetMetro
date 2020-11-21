@@ -2,6 +2,7 @@
 #include "../../Includes/ListeChaine/ListeCoordonnes.h"
 
 void Add_Coord_Gare(EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite){
+	printf(" ");
 	Coordonnes *Actuel=malloc(sizeof(Coordonnes));
 	for(int i =Limite->DebutX;i<Limite->FinY;i++){
 		for(int j=Limite->DebutY;j<Limite->FinY;j++){

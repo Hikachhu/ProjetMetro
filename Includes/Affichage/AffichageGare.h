@@ -1,6 +1,5 @@
 #include "../../Structure.h"
 
-void AffichageGare();
 char **initialisation_train();
 void affichage(char **mat, char sentence[],int y,int x, int cache);
 void deplacementTrain(char **train,int x, int y, int stop, int verif);

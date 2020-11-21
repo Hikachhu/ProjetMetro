@@ -22,9 +22,6 @@ void FonctionnementEnsembleGare(){
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
   EnteteListeCoordonnes *ListePositionGare =Init_List_Coord();
-
-  AffichageGare();
-  AffichageGare();
   
   Add_Coord_Gare(&ListePositionGare[0],&Limite[0]);
   Add_Coord_Gare(&ListePositionGare[1],&Limite[1]);
@@ -42,13 +39,13 @@ void FonctionnementEnsembleGare(){
   }
 
   for(int i=0;i<6&&TeteListe[0].PremierPersonnage!=NULL&&TeteListe[1].PremierPersonnage!=NULL;i++){
-    TourParTour(TeteListe,15,(i)%3,TrainGeneral,ListePositionImpossible,Limite);
+    TourParTour(TeteListe,17,TrainGeneral,ListePositionImpossible,Limite);
   } 
-  if(TeteListe[1].PremierPersonnage!=NULL)
-    Free_List_Perso(&TeteListe[1]);
-  else
-    mvprintw(31,0,"VIDE");
-   if(TeteListe[0].PremierPersonnage!=NULL)
+  // if(TeteListe[1].PremierPersonnage!=NULL)
+  //   Free_List_Perso(&TeteListe[1]);
+  // else
+  //   mvprintw(31,0,"VIDE");
+  if(TeteListe[0].PremierPersonnage!=NULL)
     Free_List_Perso(&TeteListe[0]);
   else
     mvprintw(32,0,"VIDE");
@@ -63,8 +60,8 @@ int main(int argc, char *argv[]) {
   initscr();
   start_color();
 
-  init_pair(1,COLOR_GREEN,COLOR_BLACK);
-  init_pair(2,COLOR_RED,COLOR_BLACK);
+  init_pair(1,COLOR_WHITE,COLOR_BLACK);
+  init_pair(2,COLOR_WHITE,COLOR_BLACK);
   attron(COLOR_PAIR(1));
 
   char **metro = initialisation_metro();

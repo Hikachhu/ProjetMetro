@@ -14,17 +14,12 @@
 	#include <unistd.h>
 	#include <wchar.h>
 
-	#define TAILLEX 9
-	#define TAILLEY 99
-
 	#define HautDebutX 5
 	#define HautFinX 10
 	#define HautDebutY 16
 	#define HautFinY 141
 	#define BasDebutX 32
 	#define BasFinX 37
-	#define BasDebutY
-	#define BasFinY
 
 
 	#define Haut_train 5
