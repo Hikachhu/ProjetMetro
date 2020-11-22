@@ -11,7 +11,7 @@ Pour ubuntu l'installation se réalise avec
 sudo apt-get install libncurses5-dev libncursesw5-dev
 ``` 
 
-##Utilisation
+## Utilisation
 Pour commencer le projet veuillez faire 
 ```
 make
