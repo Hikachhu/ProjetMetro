@@ -7,7 +7,9 @@ SRC  := $(wildcard src/*/*.c) main.c
 OBJS := $(patsubst src/%.c, obj/%.o, $(SRC))
 
 .PHONY: all
-all: $(EXE)
+help:
+
+compil:$(EXE)
 
 $(EXE): $(OBJS)
 	$(CC) -o $(EXE) $(OBJS) $(CFLAGS) -I $(INCLUDE)
@@ -15,19 +17,13 @@ $(EXE): $(OBJS)
 obj/%.o: src/%.c
 	$(CC) -o $@ -c -g $^ $(CFLAGS)
 
-TEST:
-	@echo $(SRC)
-	@echo $(OBJS)
-
 clean:
-	rm obj/*/*.o
+	rm obj/*/*.o 
+	rm $(EXE)
 
 exec:
 	./$(EXE)
 	reset
 
 help:
-	@echo "all -> compilation du projet\nclean-> supprime les .o\nexec -> execute le projet compilé\n"
-
-debug:
-	@gdb ./$(EXEC)
+	@echo "\nall -> Appel de l'help\ncompil -> Compilation du projet\nclean-> supprime les .o ainsi que l'executable\nexec -> execute le projet compilé"

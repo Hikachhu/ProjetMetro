@@ -2,19 +2,26 @@
 #include "../../Includes/Affichage/AffichageGare.h"
 #include "../../Includes/Affichage/FonctionsUtiles.h"
 
-char **initialisation_train()
-{
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+//
+// Fonctions pour l'affiche de la gare et du train
+// --------------------------------------------------------------------------------------
+
+//Création du tableau pour stocker les informations du fichier du train
+char **initialisation_train(){
     char **mat = NULL;
     mat = (char **)malloc(Haut_train * sizeof(char *));
-    for (int i = 0; i < Haut_train; i++)
-    {
+    for (int i = 0; i < Haut_train; i++){
         mat[i] = (char *)malloc(Long_train * sizeof(char));
     }
     return mat;
 }
 
+//Affiche en fonction du train du fichier selectionné
 void affichage(char **mat, char sentence[],int y,int x, int cache){
-
     int Haut = 0, Long = 0; 
     char train_txt[] = "train";
     char metro_txt[] = "Texture/metro";
@@ -24,18 +31,16 @@ void affichage(char **mat, char sentence[],int y,int x, int cache){
     if (strcmp(sentence,train_txt) == 0 || strcmp(sentence,trainEnGare_txt) == 0 ||strcmp(sentence,trainEnGare2_txt) == 0){
         Haut = Haut_train;
         Long = Long_train;
-       // printf("%d %d\n", Haut, Long);
     }
     else if(strcmp(sentence,metro_txt) == 0){
         Haut = Haut_metro;
         Long = Long_metro;
-        //printf("%d %d\n", Haut, Long);
     }   
 
     for(int i = 0 ; i < Haut; i ++){
         x = 0;
         for(int j = 0; j < Long ; j++){
-            convertion(mat,i,j,y,x+cache);
+            conversion(mat,i,j,y,x+cache);
             x++;
         }
         y++;
@@ -43,14 +48,14 @@ void affichage(char **mat, char sentence[],int y,int x, int cache){
     refresh();
 }
 
+//Affiche le déplacement du train
 void deplacementTrain(char **train,int x, int y, int stop, int verif){
     int xCache = x;
     int yCache = y;
     int xbleue = 24;
     int compt = 0;
 
-    while(xCache < stop && verif > 0)
-    {
+    while(xCache < stop && verif > 0){
         xCache = xCache + verif; // vitesse du train
         usleep(1000);
         refresh();
@@ -58,12 +63,10 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
         if (xCache > xbleue){
             compt ++;
         }
-        for (int i = 0; i < Haut_train; i++)
-        {
+        for (int i = 0; i < Haut_train; i++){
             x = 0;
-            for (int j = 0; j < Long_train - compt; j++)
-            {
-                if(x+xCache<156)convertion(train,i,j,y,x + xCache);
+            for (int j = 0; j < Long_train - compt; j++){
+                if(x+xCache<156)conversion(train,i,j,y,x + xCache);
                 x++;
                 refresh();
             }
@@ -72,18 +75,15 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
         y = yCache;
     }
 
-    while(verif < 0 && xCache > stop)
-    {
+    while(verif < 0 && xCache > stop){
         xCache = xCache + verif; // vitesse du train
         usleep(1000);
         refresh();
 
-        for (int i = 0; i < Haut_train; i++)
-        {
+        for (int i = 0; i < Haut_train; i++){
             x = 0;
-            for (int j = 0; j < Long_train ; j++)
-            {
-                if(x+xCache<156)convertion(train,i,j,y,x + xCache);
+            for (int j = 0; j < Long_train ; j++){
+                if(x+xCache<156)conversion(train,i,j,y,x + xCache);
                 x++;
                 refresh();
             }
@@ -93,9 +93,9 @@ void deplacementTrain(char **train,int x, int y, int stop, int verif){
     }
 }
 
-void convertion(char **matrix , int i , int j, int y, int x ){
-    switch (matrix[i][j])
-    {
+//Fais correspondre les lettres lu à des caracteres spéciaux grâce à un switch case
+void conversion(char **matrix , int i , int j, int y, int x ){
+    switch (matrix[i][j]){
         case ' ':
             mvprintw(y, x , " ");
             break;
@@ -166,13 +166,7 @@ void convertion(char **matrix , int i , int j, int y, int x ){
     }
 }
 
-
-void affichageTemps(int x , int y , int temp)
-{
-    char text[] = "next";
-    mvprintw(y,x,"%s=%d",text,temp);
-}
-
+//Affiche le train en gare
 void trainEnGare(char c){
     char **trainGare1 = initialisation_trainEnGare();
     char **trainGare2 = initialisation_trainEnGare();

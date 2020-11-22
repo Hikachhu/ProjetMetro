@@ -8,9 +8,18 @@
 
 #include "Includes/TourParTour/TourParTour.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+//
+// Fonction de fonctionnement des gares et main
+// --------------------------------------------------------------------------------------
 
 void FonctionnementEnsembleGare(){
   Limitation *Limite=malloc(2*sizeof(Limite));
+
+  //Délimitations des bords des gares dans une structures pour les passer en parametre
   Limite[0].DebutX=3;
   Limite[0].FinX=Limite[0].DebutX+7;
   Limite[0].DebutY=16;
@@ -20,33 +29,35 @@ void FonctionnementEnsembleGare(){
   Limite[1].DebutY=16;
   Limite[1].FinY=141;
 
+  //Ensemble des entete de structure contenant les trains, les personnages et les listes de positions pour leurs déplacements
   Train *TrainGeneral=CreationTrain(Limite);
   EnteteListePersonnages *TeteListe=Init_List_Perso();
   EnteteListeCoordonnes *ListePositionImpossible=Init_List_Coord();
   EnteteListeCoordonnes *ListePositionGare =Init_List_Coord();
   
+
   Add_Coord_Gare(&ListePositionGare[0],&Limite[0]);
   Add_Coord_Gare(&ListePositionGare[1],&Limite[1]);
 
-
+  //Affichage des portes des trains
   AffichageTrain(&TrainGeneral[0]);
   AffichageTrain(&TrainGeneral[1]);
 
+  //Création de la liste des personnages de la gare du haut
   for (int i = 0; i < 26; i++){
     Add_Perso_In_List(&TeteListe[0],i,(rand()%(Limite[0].FinX-Limite[0].DebutX-2))+Limite[0].DebutX+2,(rand()%(Limite[0].FinY-Limite[0].DebutY-1))+1+Limite[0].DebutY,0);
   }
 
+  //Création de la liste des personnages de la gare du bas
   for (int i = 0; i < 26; i++){
     Add_Perso_In_List(&TeteListe[1],i,(rand()%(Limite[1].FinX-Limite[1].DebutX-2))+Limite[1].DebutX+2,(rand()%(Limite[1].FinY-Limite[1].DebutY-1))+1+Limite[1].DebutY,0);
   }
 
+  //Appel de la fonctionne réalisant les tour de chaque déplacement de train de personnage
   for(int i=0;i<6&&TeteListe[0].PremierPersonnage!=NULL&&TeteListe[1].PremierPersonnage!=NULL;i++){
     TourParTour(TeteListe,17,TrainGeneral,ListePositionImpossible,Limite);
   } 
-  // if(TeteListe[1].PremierPersonnage!=NULL)
-  //   Free_List_Perso(&TeteListe[1]);
-  // else
-  //   mvprintw(31,0,"VIDE");
+
   if(TeteListe[0].PremierPersonnage!=NULL)
     Free_List_Perso(&TeteListe[0]);
   else
@@ -72,10 +83,14 @@ int main(int argc, char *argv[]) {
 
   char metro_txt[] = "Texture/metro";
 
+  //Affichage de la Gare depuis le fichier txt
   remplissage_mat(metro, metro_txt);
   affichage(metro ,metro_txt, 0, 0, 0);
 
+  //Boucle principale servant à manipuler les structures d'informations afin de faire
+  //fonctionner les deux gares ensemble
   FonctionnementEnsembleGare();
+
   attroff(COLOR_PAIR(2));
   attroff(COLOR_PAIR(1));
   endwin();

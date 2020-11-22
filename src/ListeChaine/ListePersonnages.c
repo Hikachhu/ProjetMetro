@@ -1,5 +1,14 @@
 #include "../../Includes/ListeChaine/ListePersonnages.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+//
+// Ensemble des fonctions servant au fonctionnement de la liste des personnages
+// --------------------------------------------------------------------------------------
+
+//Ajout d'un personnage en fin de liste des personnages
 void Add_Perso_In_List(EnteteListePersonnages *EnteteListesDesPersonnages,int id,int x,int y,int type){
 	Personnage *NouvellePersonne=Creat_New_Perso(id,x,y,type);
 	ElementListePersonnages *NouvelElementListePersonnages=malloc(sizeof(ElementListePersonnages));
@@ -14,6 +23,7 @@ void Add_Perso_In_List(EnteteListePersonnages *EnteteListesDesPersonnages,int id
 	EnteteListesDesPersonnages->DernierPersonnage=NouvelElementListePersonnages;
 }
 
+//Création d'un tableau de listes de personnages
 EnteteListePersonnages* Init_List_Perso(){
 	EnteteListePersonnages* EnteteListesDesPersonnages;
 	EnteteListesDesPersonnages=malloc(2*sizeof(EnteteListePersonnages));
@@ -24,6 +34,7 @@ EnteteListePersonnages* Init_List_Perso(){
 	return EnteteListesDesPersonnages;
 }
 
+//Création d'une structure de personnage
 Personnage* Creat_New_Perso(int id,int x,int y,int type){
 	
 	Personnage *NouvellePersonne=NULL;
@@ -52,7 +63,7 @@ Personnage* Creat_New_Perso(int id,int x,int y,int type){
 	return NouvellePersonne;
 }
 
-
+//Suppression d'une liste de personnage
 void Free_List_Perso(EnteteListePersonnages *EnteteListeDesPersonnages){
 	do{
 		Rm_Elem_List_Perso(EnteteListeDesPersonnages);
@@ -61,6 +72,10 @@ void Free_List_Perso(EnteteListePersonnages *EnteteListeDesPersonnages){
 	free(EnteteListeDesPersonnages);
 }
 
+//Parcours de la liste en prennant en parametre un pointeur de fonction
+//Cette fonction prend en parametre un pointeur de personnage
+//Ainsi nous appellons cette fonction pour balayer la liste de personnage
+//Et nous modifions ce que nous faisons sur chaque personnage grâce à la fonction passée en parametre
 void Parcours_L_Gene(void (*FonctionActive)(Personnage*),EnteteListePersonnages *EnteteListeDesPersonnages){
 	if(EnteteListeDesPersonnages->PremierPersonnage!=NULL){
 		mvprintw(50,130,"LISTE VIDE");
@@ -69,14 +84,16 @@ void Parcours_L_Gene(void (*FonctionActive)(Personnage*),EnteteListePersonnages 
 		Personnage *PersonnageActuel=NULL;
 		do{
 			PersonnageActuel=Actuel->Usager;
+			//Appel de la fonction pour chaque personnage
 			(*FonctionActive)(PersonnageActuel);
 			Actuel=Actuel->Suivant;
 		}while(Actuel!=NULL);
 	}
 }
 
+//Fonction qui renvoi l'élement suivant par rapport à l'id passé en parametre, ainsi si l'id est incrémenté, cette fonction balaye l'ensemble de la liste chainée
 ElementListePersonnages* Parcours_L_Gene_Recur(ElementListePersonnages *ElementPersonnages,int id,int XVerif,int YVerif,int *Possible){
-	if(ElementPersonnages!=NULL){
+	if(ElementPersonnages!=NULL){	
 		if(ElementPersonnages->Usager->ID<=id){
 			Personnage *PersonnageActuel=ElementPersonnages->Usager;
 			if (XVerif==PersonnageActuel->PositionActuel->x&&YVerif==PersonnageActuel->PositionActuel->y)(*Possible)++;
@@ -86,6 +103,7 @@ ElementListePersonnages* Parcours_L_Gene_Recur(ElementListePersonnages *ElementP
 	return ElementPersonnages;
 }
 
+//Suppression du premier élément de la liste des personnages
 void Rm_Elem_List_Perso(EnteteListePersonnages *EnteteListesDesPersonnages){
 	ElementListePersonnages *ElementTemporaire=EnteteListesDesPersonnages->PremierPersonnage;
 	EnteteListesDesPersonnages->PremierPersonnage=ElementTemporaire->Suivant;
@@ -96,6 +114,7 @@ void Rm_Elem_List_Perso(EnteteListePersonnages *EnteteListesDesPersonnages){
 	free(ElementTemporaire);
 }
 
+//Suppression d'un element ciblé dont nous passons l'id en parametre
 ElementListePersonnages *Rm_Elem_List_Perso_Cible(EnteteListePersonnages *EnteteListesDesPersonnages,int IdASup){
 	ElementListePersonnages *ElemActuel=EnteteListesDesPersonnages->PremierPersonnage;
 	while(ElemActuel!=NULL&&ElemActuel->Suivant->Usager->ID!=IdASup&&ElemActuel->Suivant!=NULL){
@@ -109,24 +128,24 @@ ElementListePersonnages *Rm_Elem_List_Perso_Cible(EnteteListePersonnages *Entete
 	free(ElementTemporaire->Usager->FuturPosition);
 	free(ElementTemporaire->Usager);
 	free(ElementTemporaire);
-
-//	Parcours_L_Gene(&Erase_List_Perso,EnteteListesDesPersonnages);
-	// Parcours_L_Gene(&Print_All_Info_Perso_G,EnteteListesDesPersonnages);
 	refresh();
 	return ElemActuel->Suivant;
 
 }
 
+//Attribue une direction aléatoire pour un personnage
 void ChoixDirection(Personnage *PersonnageActuel){
 	PersonnageActuel->Direction->x=random()%3-1;
 	PersonnageActuel->Direction->y=random()%3-1;
 }
 
+//Remplace la position actuel d'un personnage par sa futur position
 void New_Pos_To_Current_Pos(Personnage *PersonnageActuel){
 	PersonnageActuel->PositionActuel->x=PersonnageActuel->FuturPosition->x;
 	PersonnageActuel->PositionActuel->y=PersonnageActuel->FuturPosition->y;
 }
 
+//Permet de modifier la direction d'un personnage où le choix du personnage sera entrée par l'utilisateur, tout comme la direction
 void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes){
 	char Direction;
 	int IdPersonnage;

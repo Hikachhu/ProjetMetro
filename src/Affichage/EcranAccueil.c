@@ -1,9 +1,18 @@
 #include "../../Structure.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+//
+// Fonctions d'écran d'accueil
+// --------------------------------------------------------------------------------------
+
+// Fonction d'affichage d'écran d'accueil avec explication de son fonctionnement
 void AffichageEcranAccueil(){
 	erase();
 	int max=0;
-	char *ListeLigne[10]={	"Bienvenu dans ce simu",
+	char *ListeLigne[10]={		"Bienvenu dans ce simu",
 								"Ce programme cest du tour par tour",
 								"Chaque personnage peut se deplacer sur les 8 cases autour de lui ou alors ne pas bouger, donc 9 possibilites",
 								"Pour controler un personnage vous devez dabord donner sa lettre correspondante puis sa direction",

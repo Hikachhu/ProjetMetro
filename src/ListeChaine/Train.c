@@ -1,22 +1,38 @@
 #include "../../Structure.h"
 #include "../../Includes/ListeChaine/ListePersonnages.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+//
+// Fonctions relative a la manipulations des personnages vis à vis du train
+// --------------------------------------------------------------------------------------
+
+//Fonction de verification si un personnage se trouve a la bonne position pour rentrée par une porte du train
 void Verif_Go_In_Train(Train *TrainActuel,ElementListePersonnages *ElemPersonnageActuel,EnteteListePersonnages *EnteteListeDesPersonnages){
-//	AfficheCoordonnesTrain(TrainActuel);
 	Personnage *PersonnageActuel=NULL;
 	ElementListePersonnages *ElementSuivant=NULL;
+  //Pour tout les personnages
 	do{
 		if(PersonnageActuel==NULL){
 			ElementSuivant=EnteteListeDesPersonnages->PremierPersonnage;
 		}
 		PersonnageActuel=ElemPersonnageActuel->Usager;
 		ElementSuivant=ElemPersonnageActuel->Suivant;
+
+    //Pour toutes les portes
 		for (int i = 0; i < 8&&PersonnageActuel!=NULL; i++){
+
+      //Si le personnage est sur une porte du train
 			if(PersonnageActuel->PositionActuel->y==TrainActuel->PositionPorte[i]->y&&(PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x-2||PersonnageActuel->PositionActuel->x==TrainActuel->PositionPorte[i]->x)){
-				if(PersonnageActuel->ID==EnteteListeDesPersonnages->PremierPersonnage->Usager->ID){
+				
+        //Si c'est le premier personnage nous supprimons le 1er personnage
+        if(PersonnageActuel->ID==EnteteListeDesPersonnages->PremierPersonnage->Usager->ID){
 					ElementSuivant=ElemPersonnageActuel->Suivant;
 					Rm_Elem_List_Perso(EnteteListeDesPersonnages);
 				}
+        //Sinon nous supprimons le personnage ciblé par son id
 				else{
 					ElementSuivant=Rm_Elem_List_Perso_Cible(EnteteListeDesPersonnages,PersonnageActuel->ID);
 					break;
@@ -51,6 +67,7 @@ Train* CreationTrain(Limitation *Limite){
   return TrainActuel;
 }
 
+//Affiche les portes du train
 void AffichageTrain(Train *TrainActuel){
   for (int a = 0; a < 4; a++){
     mvprintw(TrainActuel->PositionPorte[a*2]->x,TrainActuel->PositionPorte[a*2]->y,"G");
@@ -59,6 +76,7 @@ void AffichageTrain(Train *TrainActuel){
   }
 }
 
+//Trouve la porte dont le personnage est le plus proche par zone
 void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Limite){
   int TXAvant,TXActuel,TXApres,TY,PX,PY;
 
@@ -66,6 +84,7 @@ void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Lim
   PX=PersonnageActuel->PositionActuel->y;
   PY=PersonnageActuel->PositionActuel->x;
 
+  //Pour toutes les protes
   for(int a=0;a<8;a++){
     TXActuel=TrainActuel->PositionPorte[a]->y;
 
@@ -83,14 +102,20 @@ void TrouveTrain(Personnage *PersonnageActuel,Train* TrainActuel,Limitation *Lim
       TXApres=((TrainActuel->PositionPorte[a+1]->y)+(TXActuel))/2;
     }
 
+    //Si le X le personne à le bon x il n'y a pas a faire de déplacement dans ce sens
     if(TXActuel==PX){
       PersonnageActuel->Direction->y=0;
+      
+      //Si le personnage est proche de la porte actuel par la gauche il va vers la droite
     }else if(TXAvant<=PX&&PX<TXActuel){
       PersonnageActuel->Direction->y=1;
+
+      //De meme pour l'autre sens
     }else if(TXActuel<PX && PX<=TXApres){
       PersonnageActuel->Direction->y=-1;
     }
 
+    //Gestion de la hauteur
     if(TY>PY){
       PersonnageActuel->Direction->x=1;
     }else{
