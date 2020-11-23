@@ -101,8 +101,8 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					if(Entete[1].PremierPersonnage!=NULL&&mode!=0&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1);
 
 				}
-				if(mode==0) getch();
-				
+				if(mode==0||mode==1) usleep(400000);
+
 				//Effacement des personnages dans la gare
 				if(Entete[0].PremierPersonnage!=NULL&&mode!=0)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[0]);
 				if(Entete[1].PremierPersonnage!=NULL&&mode!=0)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[1]);

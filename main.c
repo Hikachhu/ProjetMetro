@@ -81,25 +81,29 @@ int main(int argc, char *argv[]) {
   init_pair(1,COLOR_WHITE,COLOR_BLACK);
   init_pair(2,COLOR_RED,COLOR_BLACK);
   attron(COLOR_PAIR(1));
+  if(COLS>192){
+    int mode=AffichageEcranAccueil();
 
-  int mode=AffichageEcranAccueil();
+    char **metro = initialisation_metro();
 
-  char **metro = initialisation_metro();
+    char metro_txt[] = "Texture/metro";
 
-  char metro_txt[] = "Texture/metro";
+    //Affichage de la Gare depuis le fichier txt
+    remplissage_mat(metro, metro_txt);
+    affichage(metro ,metro_txt, 0, 0, 0);
 
-  //Affichage de la Gare depuis le fichier txt
-  remplissage_mat(metro, metro_txt);
-  affichage(metro ,metro_txt, 0, 0, 0);
+    //Boucle principale servant à manipuler les structures d'informations afin de faire
+    //fonctionner les deux gares ensemble
+    FonctionnementEnsembleGare(mode);
 
-  //Boucle principale servant à manipuler les structures d'informations afin de faire
-  //fonctionner les deux gares ensemble
-  FonctionnementEnsembleGare(mode);
-
-  attroff(COLOR_PAIR(2));
-  attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(2));
+    attroff(COLOR_PAIR(1));
+  }else{
+    mvprintw(0,0,"Votre taille d'écran est trop petite, minimal = 192, votre taille =%d",COLS);
+    refresh();
+    getch();
+  }
   endwin();
-  pthread_exit(NULL);
 
 return 0;
 }
