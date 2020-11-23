@@ -92,13 +92,18 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 				    }
 					mvprintw(0,109,"TRAIN EN STATION           ");
 
+					mvprintw(3,4,"STATION",TourARealise-NombreDeTour);
+					mvprintw(3,143,"STATION",TourARealise-NombreDeTour);
+					mvprintw(35,4,"STATION",TourARealise-NombreDeTour);
+					mvprintw(35,143,"STATION",TourARealise-NombreDeTour);
+
 					//Selection de la direction en fonction de la position des portes pour trouver la porte la plus proche
 					if(Entete[0].PremierPersonnage!=NULL&&mode!=0)ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
 					if(Entete[1].PremierPersonnage!=NULL&&mode!=0)ChoixDirectionTrain(&Entete[1],&TrainActuel[1],&Limite[1]);
 
 					//Déplacement manuel d'un personnage par l'utilisateur
-					if(Entete[0].PremierPersonnage!=NULL&&mode!=0&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0);
-					if(Entete[1].PremierPersonnage!=NULL&&mode!=0&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1);
+					if(Entete[0].PremierPersonnage!=NULL&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0);
+					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1);
 
 				}
 				if(mode==0||mode==1) usleep(400000);

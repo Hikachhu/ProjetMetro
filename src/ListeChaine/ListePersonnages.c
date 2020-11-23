@@ -156,16 +156,16 @@ int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnage
 	
 	mvprintw(30+6*Listes,160,"Nom d'un personnage à controler");
 	refresh();
-	scanf("%c",&charPersonnage);
+	scanw("%c",&charPersonnage);
 	IdPersonnage=(int)charPersonnage-97;
 	mvprintw(31+6*Listes,160,"%c",IdPersonnage+'a');
 	refresh();
 
-	Affichage_Gare_Couleur(EnteteListesDesPersonnages,IdPersonnage);
+	if(IdPersonnage>=0&&IdPersonnage<=25) Affichage_Gare_Couleur(EnteteListesDesPersonnages,IdPersonnage);
 
 	mvprintw(32+6*Listes,160,"Quelle direction ? azeqsdwc");
 	refresh();
-	scanf("%c",&Direction);
+	scanw("%c",&Direction);
 	mvprintw(33+6*Listes,160,"%c",Direction);
 
 	int xDirection=0,yDirection=0;

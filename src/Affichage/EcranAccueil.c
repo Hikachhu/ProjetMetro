@@ -47,7 +47,7 @@ int AffichageEcranAccueil(){
 		mvprintw(taille+14,50,"3=Deplacement personnage avec choix personnage bas dispo");
 		mvprintw(taille+15,50,"4=Deplacement personnage avec choix personnage haut et bas dispo");
 		refresh();
-		scanf("%d",&mode);
+		scanw("%d",&mode);
 	}while(!(mode>=0&&mode<=4));
 	getch();
 	erase();
