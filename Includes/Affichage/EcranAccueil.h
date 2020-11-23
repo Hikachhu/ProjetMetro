@@ -1,1 +1,1 @@
-void AffichageEcranAccueil();
+int AffichageEcranAccueil();

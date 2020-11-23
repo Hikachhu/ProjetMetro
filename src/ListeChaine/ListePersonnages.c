@@ -146,7 +146,7 @@ void New_Pos_To_Current_Pos(Personnage *PersonnageActuel){
 }
 
 //Permet de modifier la direction d'un personnage où le choix du personnage sera entrée par l'utilisateur, tout comme la direction
-void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes){
+int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes){
 	char Direction;
 	int IdPersonnage;
 	char charPersonnage;
@@ -160,6 +160,8 @@ void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnag
 	IdPersonnage=(int)charPersonnage-97;
 	mvprintw(31+6*Listes,160,"%c",IdPersonnage+'a');
 	refresh();
+
+	Affichage_Gare_Couleur(EnteteListesDesPersonnages,IdPersonnage);
 
 	mvprintw(32+6*Listes,160,"Quelle direction ? azeqsdwc");
 	refresh();
@@ -217,4 +219,18 @@ void Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnag
 		mvprintw(34+6*Listes,160,"Personnage:%c xDirection%2d yDirection:%2d",PersonnageActuel->ID+'a',PersonnageActuel->Direction->x,PersonnageActuel->Direction->y);
 		refresh();
 	}
+	return IdPersonnage;
+}
+
+//fonction pour afficher un personnage en rouge
+void Affichage_Gare_Couleur(EnteteListePersonnages *EnteteListesDesPersonnages,int IdPersonnage){
+	ElementListePersonnages *Actuel=EnteteListesDesPersonnages->PremierPersonnage;
+	Personnage *PersonnageActuel=Actuel->Usager;
+	while(Actuel!=NULL&&PersonnageActuel->ID!=IdPersonnage){
+		PersonnageActuel=Actuel->Usager;
+		Actuel=Actuel->Suivant;
+	}
+	attron(COLOR_PAIR(2));
+	mvprintw(PersonnageActuel->PositionActuel->x+1,PersonnageActuel->PositionActuel->y+1,"%c",PersonnageActuel->ID+'a');
+	attron(COLOR_PAIR(1));
 }

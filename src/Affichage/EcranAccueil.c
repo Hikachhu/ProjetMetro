@@ -9,9 +9,10 @@
 // --------------------------------------------------------------------------------------
 
 // Fonction d'affichage d'écran d'accueil avec explication de son fonctionnement
-void AffichageEcranAccueil(){
+int AffichageEcranAccueil(){
 	erase();
 	int max=0;
+	int mode=-1;
 	char *ListeLigne[10]={		"Bienvenu dans ce simu",
 								"Ce programme cest du tour par tour",
 								"Chaque personnage peut se deplacer sur les 8 cases autour de lui ou alors ne pas bouger, donc 9 possibilites",
@@ -27,7 +28,20 @@ void AffichageEcranAccueil(){
 	for(int i=0;i<8;i++){
 		mvprintw(10+i,50+(int)(max-strlen(ListeLigne[i]))/2,"%s",ListeLigne[i]);
 	}
+	do{
+		mvprintw(19,50,"Choix mode");
+		mvprintw(20,50,"0=train seul");
+		mvprintw(21,50,"1=Deplacement personnage sans choix de personnage a selectionner");
+		mvprintw(22,50,"2=Deplacement personnage avec choix personnage haut dispo");
+		mvprintw(23,50,"3=Deplacement personnage avec choix personnage bas dispo");
+		mvprintw(24,50,"4=Deplacement personnage avec choix personnage haut et bas dispo");
+		mvprintw(25,50,"%3d",mode);
+		refresh();
+		scanf("%d",&mode);
+	}while(!(mode>=0&&mode<=4));
+	mvprintw(26,50,"%d",mode);
 	refresh();
 	getch();
 	erase();
+	return mode;
 }

@@ -16,8 +16,10 @@
 // Fonction de fonctionnement des gares et main
 // --------------------------------------------------------------------------------------
 
-void FonctionnementEnsembleGare(){
+void FonctionnementEnsembleGare(int mode){
   Limitation *Limite=malloc(2*sizeof(Limite));
+
+
 
   //Délimitations des bords des gares dans une structures pour les passer en parametre
   Limite[0].DebutX=3;
@@ -43,22 +45,25 @@ void FonctionnementEnsembleGare(){
   AffichageTrain(&TrainGeneral[0]);
   AffichageTrain(&TrainGeneral[1]);
 
-  //Création de la liste des personnages de la gare du haut
-  for (int i = 0; i < 26; i++){
-    Add_Perso_In_List(&TeteListe[0],i,(rand()%(Limite[0].FinX-Limite[0].DebutX-2))+Limite[0].DebutX+2,(rand()%(Limite[0].FinY-Limite[0].DebutY-1))+1+Limite[0].DebutY,0);
-  }
+  if(mode!=0){
+    //Création de la liste des personnages de la gare du haut
+    for (int i = 0; i < 26; i++){
+      Add_Perso_In_List(&TeteListe[0],i,(rand()%(Limite[0].FinX-Limite[0].DebutX-2))+Limite[0].DebutX+2,(rand()%(Limite[0].FinY-Limite[0].DebutY-1))+1+Limite[0].DebutY,0);
+    }
 
-  //Création de la liste des personnages de la gare du bas
-  for (int i = 0; i < 26; i++){
-    Add_Perso_In_List(&TeteListe[1],i,(rand()%(Limite[1].FinX-Limite[1].DebutX-2))+Limite[1].DebutX+2,(rand()%(Limite[1].FinY-Limite[1].DebutY-1))+1+Limite[1].DebutY,0);
+    //Création de la liste des personnages de la gare du bas
+    for (int i = 0; i < 26; i++){
+      Add_Perso_In_List(&TeteListe[1],i,(rand()%(Limite[1].FinX-Limite[1].DebutX-2))+Limite[1].DebutX+2,(rand()%(Limite[1].FinY-Limite[1].DebutY-1))+1+Limite[1].DebutY,0);
+    }
   }
 
   //Appel de la fonctionne réalisant les tour de chaque déplacement de train de personnage
-  for(int i=0;i<6&&TeteListe[0].PremierPersonnage!=NULL&&TeteListe[1].PremierPersonnage!=NULL;i++){
-    TourParTour(TeteListe,17,TrainGeneral,ListePositionImpossible,Limite);
+  for(int i=0;i<6&&((TeteListe[0].PremierPersonnage!=NULL&&TeteListe[1].PremierPersonnage!=NULL)||(mode==0));i++){
+
+    TourParTour(TeteListe,17,TrainGeneral,ListePositionImpossible,Limite,mode);
   } 
 
-  if(TeteListe[0].PremierPersonnage!=NULL)
+  if(TeteListe[0].PremierPersonnage!=NULL&&mode!=0)
     Free_List_Perso(&TeteListe[0]);
   else
     mvprintw(32,0,"VIDE");
@@ -74,10 +79,10 @@ int main(int argc, char *argv[]) {
   start_color();
 
   init_pair(1,COLOR_WHITE,COLOR_BLACK);
-  init_pair(2,COLOR_WHITE,COLOR_BLACK);
+  init_pair(2,COLOR_RED,COLOR_BLACK);
   attron(COLOR_PAIR(1));
 
-  AffichageEcranAccueil();
+  int mode=AffichageEcranAccueil();
 
   char **metro = initialisation_metro();
 
@@ -89,7 +94,7 @@ int main(int argc, char *argv[]) {
 
   //Boucle principale servant à manipuler les structures d'informations afin de faire
   //fonctionner les deux gares ensemble
-  FonctionnementEnsembleGare();
+  FonctionnementEnsembleGare(mode);
 
   attroff(COLOR_PAIR(2));
   attroff(COLOR_PAIR(1));
