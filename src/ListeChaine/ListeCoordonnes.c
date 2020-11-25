@@ -5,6 +5,7 @@
 // Simulateur de gare
 // Code réalisé par Morin Florian et Raphaël PtitHaddad
 // Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
 //
 // Fonctions de gestions des coordonnées
 // --------------------------------------------------------------------------------------

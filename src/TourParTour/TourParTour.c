@@ -6,6 +6,15 @@
 #include "../../Includes/Affichage/AffichageGare.h"
 #include "../../Includes/Affichage/FonctionsUtiles.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
+//
+// Fonctions de tour par tour gérant le fonctionnement d'un tour de jeu
+// --------------------------------------------------------------------------------------
+
 //Fonction permettant de manipuler les listes afin de réalisé les différent tour pour le déplacment des personnages, et des trains
 void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainActuel,EnteteListeCoordonnes *EnteteListeDesCoordonnes,Limitation *Limite,int mode){
 	if((Entete[0].PremierPersonnage!=NULL&&Entete[1].PremierPersonnage!=NULL)||mode==0){
@@ -77,8 +86,8 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					if(Entete[1].PremierPersonnage!=NULL&&mode!=0)Parcours_L_Gene(&ChoixDirection,&Entete[1]);
 
 					//Déplacement à la main d'un personnage
-					if(Entete[0].PremierPersonnage!=NULL&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0);
-					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1);
+					if(Entete[0].PremierPersonnage!=NULL&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0,IdPersonnage1);
+					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1,IdPersonnage2);
 
 				}
 				else if(PresenceTrain==1){
@@ -102,8 +111,8 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					if(Entete[1].PremierPersonnage!=NULL&&mode!=0)ChoixDirectionTrain(&Entete[1],&TrainActuel[1],&Limite[1]);
 
 					//Déplacement manuel d'un personnage par l'utilisateur
-					if(Entete[0].PremierPersonnage!=NULL&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0);
-					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1);
+					if(Entete[0].PremierPersonnage!=NULL&&(mode==2||mode==4))IdPersonnage1=Direction_Choix_Personnage(&Entete[0],0,IdPersonnage1);
+					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1,IdPersonnage2);
 
 				}
 				if(mode==0||mode==1) usleep(400000);

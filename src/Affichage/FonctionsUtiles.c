@@ -1,5 +1,14 @@
 #include "../../Structure.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
+//
+// Fonctions utiles pour l'affichage de la gare et des trains
+// --------------------------------------------------------------------------------------
+
 //Rempli une matrice grâce au nom d'un fichier passé en parametre
 void remplissage_mat(char **mat, char chemin[]){
     FILE *fichier = NULL;

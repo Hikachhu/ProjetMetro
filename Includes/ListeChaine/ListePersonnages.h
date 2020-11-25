@@ -10,5 +10,5 @@ void Rm_Elem_List_Perso(EnteteListePersonnages *EnteteListesDesPersonnages);
 ElementListePersonnages *Rm_Elem_List_Perso_Cible(EnteteListePersonnages *EnteteListesDesPersonnages,int IdASup);
 void ChoixDirection(Personnage *PersonnageActuel);
 void New_Pos_To_Current_Pos(Personnage *PersonnageActuel);
-int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Liste);
+int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Liste,int IdPersonnage);
 void Affichage_Gare_Couleur(EnteteListePersonnages *EnteteListesDesPersonnages,int IdPersonnage);

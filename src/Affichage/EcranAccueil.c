@@ -4,6 +4,7 @@
 // Simulateur de gare
 // Code réalisé par Morin Florian et Raphaël PtitHaddad
 // Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
 //
 // Fonctions d'écran d'accueil
 // --------------------------------------------------------------------------------------
@@ -40,16 +41,16 @@ int AffichageEcranAccueil(){
 	mvprintw(taille+24,milieu-37,"--------------------------     -------------------------------------------");
 
 	do{
-		mvprintw(taille+10,50,"Choix mode %d %d ",LINES,COLS);
+		mvprintw(taille+10,50,"Choix mode");
 		mvprintw(taille+11,50,"0=train seul");
 		mvprintw(taille+12,50,"1=Deplacement personnage sans choix de personnage a selectionner");
 		mvprintw(taille+13,50,"2=Deplacement personnage avec choix personnage haut dispo");
 		mvprintw(taille+14,50,"3=Deplacement personnage avec choix personnage bas dispo");
 		mvprintw(taille+15,50,"4=Deplacement personnage avec choix personnage haut et bas dispo");
+		mvprintw(taille+16,49," ");
 		refresh();
 		scanw("%d",&mode);
 	}while(!(mode>=0&&mode<=4));
-	getch();
 	erase();
 	return mode;
 }

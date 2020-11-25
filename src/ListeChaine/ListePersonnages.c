@@ -4,6 +4,7 @@
 // Simulateur de gare
 // Code réalisé par Morin Florian et Raphaël PtitHaddad
 // Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
 //
 // Ensemble des fonctions servant au fonctionnement de la liste des personnages
 // --------------------------------------------------------------------------------------
@@ -146,27 +147,26 @@ void New_Pos_To_Current_Pos(Personnage *PersonnageActuel){
 }
 
 //Permet de modifier la direction d'un personnage où le choix du personnage sera entrée par l'utilisateur, tout comme la direction
-int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes){
+int Direction_Choix_Personnage(EnteteListePersonnages *EnteteListesDesPersonnages,int Listes,int IdPersonnage){
 	char Direction;
-	int IdPersonnage;
 	char charPersonnage;
 
 	if(Listes==0) mvprintw(29+Listes*6,160,"Dans la gare du haut");
 	else mvprintw(29+Listes*6,160,"Dans la gare du bas");	
 	
 	mvprintw(30+6*Listes,160,"Nom d'un personnage à controler");
+	mvprintw(31+6*Listes,159," ");
 	refresh();
 	scanw("%c",&charPersonnage);
-	IdPersonnage=(int)charPersonnage-97;
-	mvprintw(31+6*Listes,160,"%c",IdPersonnage+'a');
+	if((charPersonnage-97)>=0&&(charPersonnage-97<=25))		IdPersonnage=charPersonnage-97;
 	refresh();
 
 	if(IdPersonnage>=0&&IdPersonnage<=25) Affichage_Gare_Couleur(EnteteListesDesPersonnages,IdPersonnage);
 
 	mvprintw(32+6*Listes,160,"Quelle direction ? azeqsdwc");
+	mvprintw(33+6*Listes,159," ");
 	refresh();
 	scanw("%c",&Direction);
-	mvprintw(33+6*Listes,160,"%c",Direction);
 
 	int xDirection=0,yDirection=0;
 	switch(Direction){

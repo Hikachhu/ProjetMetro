@@ -1,5 +1,14 @@
 #include "../../Structure.h"
 
+// --------------------------------------------------------------------------------------
+// Simulateur de gare
+// Code réalisé par Morin Florian et Raphaël PtitHaddad
+// Réalisé dans le cadre du projet de 1er Semestre de 3eme année de l'ESIEA
+// https://github.com/Hikachhu/ProjetMetro
+//
+// Fonctions pour l'affiche et l'effacement des differents personnages
+// --------------------------------------------------------------------------------------
+
 //Efface l'ensemble des informations affichée concernant les personnages
 void Erase_List_Perso(Personnage *PersonnageActuel){
 	int Hauteur=(PersonnageActuel->ID)+15;
