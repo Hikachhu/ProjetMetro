@@ -38,6 +38,7 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 				
 				//Si le train entre ou sort
 				if(PresenceTrain==0||PresenceTrain==2){
+					mvprintw(0,109,"                     ");
 					mvprintw(0,10,"                                              ");
 					refresh();
 					
@@ -107,7 +108,7 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					mvprintw(3,143,"STATION",TourARealise-NombreDeTour);
 					mvprintw(35,4,"STATION",TourARealise-NombreDeTour);
 					mvprintw(35,143,"STATION",TourARealise-NombreDeTour);
-					if(mode==0||mode==1) sleep(3);
+					if(mode==0||mode==1) usleep(50000);
 
 					//Selection de la direction en fonction de la position des portes pour trouver la porte la plus proche
 					if(Entete[0].PremierPersonnage!=NULL&&mode!=0)ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
