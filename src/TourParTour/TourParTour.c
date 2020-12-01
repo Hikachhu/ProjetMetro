@@ -79,6 +79,8 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 						//Affiche le déplacement des deux trains
 						deplacementTrain(train,DepartBas,23,ArriveBas,-1);
 						deplacementTrain(train,DepartHaut,13,ArriveHaut,1);
+
+						if(mode==0||mode==1) usleep(5000);
 					}
 
 					//Modifications des directions de personnages de maniere aléatoire si le train n'est pas en gare
@@ -105,6 +107,7 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					mvprintw(3,143,"STATION",TourARealise-NombreDeTour);
 					mvprintw(35,4,"STATION",TourARealise-NombreDeTour);
 					mvprintw(35,143,"STATION",TourARealise-NombreDeTour);
+					if(mode==0||mode==1) usleep(5000);
 
 					//Selection de la direction en fonction de la position des portes pour trouver la porte la plus proche
 					if(Entete[0].PremierPersonnage!=NULL&&mode!=0)ChoixDirectionTrain(&Entete[0],&TrainActuel[0],&Limite[0]);
@@ -115,7 +118,7 @@ void TourParTour(EnteteListePersonnages *Entete,int TourARealise,Train *TrainAct
 					if(Entete[1].PremierPersonnage!=NULL&&(mode==3||mode==4))IdPersonnage2=Direction_Choix_Personnage(&Entete[1],1,IdPersonnage2);
 
 				}
-				if(mode==0||mode==1) usleep(400000);
+				if(mode==0||mode==1) usleep(5000);
 
 				//Effacement des personnages dans la gare
 				if(Entete[0].PremierPersonnage!=NULL&&mode!=0)Parcours_L_Gene(&Erase_In_Gare_Perso_G,&Entete[0]);
